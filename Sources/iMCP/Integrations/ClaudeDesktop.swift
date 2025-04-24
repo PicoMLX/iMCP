@@ -119,7 +119,7 @@ private func loadConfig() throws -> ClaudeDesktop.Config {
             .appendingPathComponent("Contents/MacOS/imcp-server")
             .path)
 
-    var config = ClaudeDesktop.Config(mcpServers: ["Pico AI Server": imcpServer])
+    var config = ClaudeDesktop.Config(mcpServers: ["iMCP": imcpServer])
 
     // Try to load existing config if it exists
     if let secureURL = try? getSecurityScopedConfigURL(),

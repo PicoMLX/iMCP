@@ -1,0 +1,60 @@
+{
+  "originHash" : "94b7a9f892e4f13f8a2ff4ee541ed191f012676fccc50bf0e7eeb2df11c17ec8",
+  "pins" : [
+    {
+      "identity" : "maccontrolcenterui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/orchetect/MacControlCenterUI",
+      "state" : {
+        "revision" : "ee2003b6508de0997cbe6ebb238801f297a450ab",
+        "version" : "2.4.1"
+      }
+    },
+    {
+      "identity" : "mcp-swift-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/loopwork-ai/mcp-swift-sdk",
+      "state" : {
+        "revision" : "cfcead8121de466624a1357e02894616b0057805",
+        "version" : "0.7.1"
+      }
+    },
+    {
+      "identity" : "menubarextraaccess",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/orchetect/MenuBarExtraAccess",
+      "state" : {
+        "revision" : "e911e6454f8cbfe34a52136fc48e1ceb989a60e7",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "ontology",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/loopwork-ai/Ontology",
+      "state" : {
+        "revision" : "2cbb952ac1a0b1dc465b05c1a480a922ab767849",
+        "version" : "0.6.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "3d8596ed08bd13520157f0355e35caed215ffbfa",
+        "version" : "1.6.3"
+      }
+    },
+    {
+      "identity" : "swift-system",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-system.git",
+      "state" : {
+        "revision" : "a34201439c74b53f0fd71ef11741af7e7caf01e1",
+        "version" : "1.4.2"
+      }
+    }
+  ],
+  "version" : 3
+}

@@ -17,7 +17,7 @@ private let serviceDomain = "local."
 
 private let log = Logger.server
 
-struct ServiceConfig: Identifiable {
+struct ServiceConfig: Identifiable, Sendable {
     let id: String
     let name: String
     let iconName: String
@@ -49,12 +49,12 @@ struct ServiceConfig: Identifiable {
 
 enum ServiceRegistry {
     static let services: [any Service] = [
-        CalendarService.shared,
-        ContactsService.shared,
+//        CalendarService.shared,
+//        ContactsService.shared,
         LocationService.shared,
         MapsService.shared,
-        MessageService.shared,
-        RemindersService.shared,
+//        MessageService.shared,
+//        RemindersService.shared,
         UtilitiesService.shared,
         WeatherService.shared,
     ]
@@ -70,20 +70,20 @@ enum ServiceRegistry {
         weatherEnabled: Binding<Bool>
     ) -> [ServiceConfig] {
         [
-            ServiceConfig(
-                name: "Calendar",
-                iconName: "calendar",
-                color: .red,
-                service: CalendarService.shared,
-                binding: calendarEnabled
-            ),
-            ServiceConfig(
-                name: "Contacts",
-                iconName: "person.crop.square.filled.and.at.rectangle.fill",
-                color: .brown,
-                service: ContactsService.shared,
-                binding: contactsEnabled
-            ),
+//            ServiceConfig(
+//                name: "Calendar",
+//                iconName: "calendar",
+//                color: .red,
+//                service: CalendarService.shared,
+//                binding: calendarEnabled
+//            ),
+//            ServiceConfig(
+//                name: "Contacts",
+//                iconName: "person.crop.square.filled.and.at.rectangle.fill",
+//                color: .brown,
+//                service: ContactsService.shared,
+//                binding: contactsEnabled
+//            ),
             ServiceConfig(
                 name: "Location",
                 iconName: "location.fill",
@@ -98,20 +98,20 @@ enum ServiceRegistry {
                 service: MapsService.shared,
                 binding: mapsEnabled
             ),
-            ServiceConfig(
-                name: "Messages",
-                iconName: "message.fill",
-                color: .green,
-                service: MessageService.shared,
-                binding: messagesEnabled
-            ),
-            ServiceConfig(
-                name: "Reminders",
-                iconName: "list.bullet",
-                color: .orange,
-                service: RemindersService.shared,
-                binding: remindersEnabled
-            ),
+//            ServiceConfig(
+//                name: "Messages",
+//                iconName: "message.fill",
+//                color: .green,
+//                service: MessageService.shared,
+//                binding: messagesEnabled
+//            ),
+//            ServiceConfig(
+//                name: "Reminders",
+//                iconName: "list.bullet",
+//                color: .orange,
+//                service: RemindersService.shared,
+//                binding: remindersEnabled
+//            ),
             ServiceConfig(
                 name: "Weather",
                 iconName: "cloud.sun.fill",
@@ -124,7 +124,7 @@ enum ServiceRegistry {
 }
 
 @MainActor
-final class ServerController: ObservableObject {
+public final class ServerController: ObservableObject {
     @Published var serverStatus: String = "Starting..."
     @Published var pendingConnectionID: String?
 
@@ -133,7 +133,7 @@ final class ServerController: ObservableObject {
 
     private let networkManager = ServerNetworkManager()
 
-    init() {
+    public init() {
         Task {
             await self.networkManager.start()
             self.updateServerStatus("Running")
@@ -405,12 +405,12 @@ actor ServerNetworkManager {
     }
 
     private func setupConnection(connectionID: UUID, connection: NWConnection) async {
-//        let logger = Logger(label: "com.loopwork.mcp-server.\(connectionID)")
+        let logger = Logger(label: "com.loopwork.mcp-server.\(connectionID)")
         let transport = NetworkTransport(connection: connection, logger: logger)
 
         // Create the MCP server
         let server = MCP.Server(
-            name: Bundle.main.name ?? "MCP",
+            name: Bundle.main.name ?? "iMCP",
             version: Bundle.main.shortVersionString ?? "unknown",
             capabilities: MCP.Server.Capabilities(
                 tools: .init(listChanged: true)
@@ -500,9 +500,9 @@ actor ServerNetworkManager {
             log.notice("Tool call received: \(params.name)")
 
             guard await self.isEnabled else {
-                log.notice("Tool call rejected: MCP is disabled")
+                log.notice("Tool call rejected: iMCP is disabled")
                 return CallTool.Result(
-                    content: [.text("MCP is currently disabled. Please enable it to use tools.")],
+                    content: [.text("iMCP is currently disabled. Please enable it to use tools.")],
                     isError: true
                 )
             }
@@ -565,7 +565,7 @@ actor ServerNetworkManager {
         guard isEnabled != enabled else { return }
 
         isEnabled = enabled
-        log.info("MCP enabled state changed to: \(enabled)")
+        log.info("iMCP enabled state changed to: \(enabled)")
 
         // Notify all connected clients that the tool list has changed
         for (connectionID, server) in mcpServers {
